@@ -1,0 +1,12 @@
+---
+- name: Stop Nginx
+  service: name=nginx state=stopped
+  become: yes
+
+- name: Remove index.html for host
+  command: rm -f /usr/share/nginx/html/index.html
+
+- name: Copy Index.html
+  copy: src=index.html dest=/usr/share/nginx/html/ mode=0644
+  notify:
+    - start nginx
