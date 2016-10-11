@@ -1,4 +1,8 @@
 ---
+- name: Install Nginx
+  yum: name=nginx state=present
+  become: yes
+
 - name: Stop Nginx
   service: name=nginx state=stopped
   become: yes
