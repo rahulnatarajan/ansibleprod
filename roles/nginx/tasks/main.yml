@@ -1,7 +1,9 @@
 ---
 - name: Stop Docker
-  command: docker stop $(docker ps -a -q)
+  shell: "docker stop $(docker ps -a -q)"
   ignore_errors: yes
+  become: yes
 
 - name: start Docker
-  command: nohup docker run -p 80:80 rahulna/dockerdemo &
+  shell: "nohup docker run -p 80:80 rahulna/dockerdemo &"
+  become: yes
