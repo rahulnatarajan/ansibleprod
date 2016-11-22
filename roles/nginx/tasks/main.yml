@@ -1,6 +1,7 @@
 ---
 - name: Stop Docker
   command: docker stop $(docker ps -a -q)
+  ignore_errors: yes
   become: yes
 
 - name: start Docker
