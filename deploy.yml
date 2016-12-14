@@ -1,4 +1,4 @@
 ---
-- hosts: 10.0.0.202
+- hosts: localhost
   roles:
-    - role: sensu
+    - role: aws

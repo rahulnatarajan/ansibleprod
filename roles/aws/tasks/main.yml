@@ -1,0 +1,32 @@
+---
+- name: "Provision VPC"
+  local_action:
+        module: ec2_vpc:
+        state: present
+        cidr_block: 192.168.0.0/16
+        resource_tags: { "Name":"VPCFromAnsible", "Environment":"Development" }
+        subnets:
+          - cidr: 192.168.1.0/24
+            az: us-east-1a
+            resource_tags: { "Name":"VFA_PubSN_	1", "Environment":"Dev", "Tier" : "Web" }
+          - cidr: 192.168.2.0/24
+            az: us-east-1b
+            resource_tags: { "Name":"VFA_PubSN_	2", "Environment":"Dev", "Tier" : "App" }
+          - cidr: 192.168.3.0/24
+            az: us-east-1a
+            resource_tags: { "Name":"VFA_PvtSN_	1", "Environment":"Dev", "Tier" : "DB" }
+        internet_gateway: True
+        route_tables:
+          - subnets:
+              - 192.168.1.0/24
+              - 192.168.2.0/24
+            routes:
+              - dest: 0.0.0.0/0
+                gw: igw
+          - subnets:
+              - 192.168.3.0/24
+            routes:
+              - dest: 0.0.0.0/0
+                gw: igw
+        region: us-east-1
+      register: vpc
