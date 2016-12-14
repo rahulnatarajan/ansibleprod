@@ -1,2 +1,2 @@
 ---
-- include: deletevpc.yml
+- include: createvpc.yml
