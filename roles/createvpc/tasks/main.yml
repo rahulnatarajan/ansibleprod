@@ -5,39 +5,30 @@
   local_action:
        module: ec2_vpc
        state: present
-       cidr_block: 192.168.0.0/16
+       cidr_block: "{{ cidr_block }}"
        resource_tags: { "Name":"VPCFromAnsible", "Environment":"Development" }
        subnets:
-          - cidr: 192.168.1.0/24
-            az: us-east-1a
+          - cidr: "{{ cidr_sn1 }}"
+            az: "{{ az1 }}"
             resource_tags: { "Name":"VFA_PubSN_	1", "Environment":"Dev", "Tier" : "Web" }
-          - cidr: 192.168.2.0/24
-            az: us-east-1b
+          - cidr: "{{ cidr_sn2 }}"
+            az: "{{ az2 }}"
             resource_tags: { "Name":"VFA_PubSN_	2", "Environment":"Dev", "Tier" : "App" }
-          - cidr: 192.168.3.0/24
-            az: us-east-1a
+          - cidr: "{{ cidr_sn3 }}"
+            az: "{{ az1 }}"
             resource_tags: { "Name":"VFA_PvtSN_	1", "Environment":"Dev", "Tier" : "DB" }
        internet_gateway: True
        route_tables:
           - subnets:
-              - 192.168.1.0/24
-              - 192.168.2.0/24
+              - "{{ cidr_sn1 }}"
+              - "{{ cidr_sn3}} "
             routes:
               - dest: 0.0.0.0/0
                 gw: igw
           - subnets:
-              - 192.168.3.0/24
+              - "{{ cidr_sn3 }}"
             routes:
               - dest: 0.0.0.0/0
                 gw: igw
-       region: us-east-1
+       region: "{{ aws_region }}"
   register: vpc
- 
-- name: "Delete VPC"
-  tags:
-     - delete
-  local_action:
-       module: ec2_vpc
-       state: absent
-       vpc_id: vpc-3b9b495d
-       region: us-east-1
