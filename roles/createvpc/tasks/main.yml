@@ -21,7 +21,7 @@
        route_tables:
           - subnets:
               - "{{ cidr_sn1 }}"
-              - "{{ cidr_sn3}} "
+              - "{{ cidr_sn2}} "
             routes:
               - dest: 0.0.0.0/0
                 gw: igw
