@@ -1,0 +1,9 @@
+---
+- name: "Delete VPC"
+  tags:
+     - delete
+  local_action:
+       module: ec2_vpc
+       state: absent
+       vpc_id: vpc-3b9b495d
+       region: us-east-1
