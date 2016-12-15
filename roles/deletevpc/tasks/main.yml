@@ -5,5 +5,7 @@
   local_action:
        module: ec2_vpc
        state: absent
-       vpc_id: vpc-3b9b495d
+       vpc_id: '{{ id }}'
        region: us-east-1
+       resource_tags: "{}"
+       wait: yes
