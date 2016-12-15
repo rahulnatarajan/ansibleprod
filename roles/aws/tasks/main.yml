@@ -33,7 +33,7 @@
        region: us-east-1
   register: vpc
  
-- name: "Provision VPC"
+- name: "Delete VPC"
   tags:
      - delete
   local_action:
